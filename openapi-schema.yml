@@ -1,0 +1,301 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+paths:
+  /api/reactors/all/:
+    get:
+      operationId: listReactors
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reactor'
+          description: ''
+      tags:
+      - api
+  /api/reactors/state/{state}/:
+    get:
+      operationId: retrieveReactor
+      description: ''
+      parameters:
+      - name: state
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reactor'
+          description: ''
+      tags:
+      - api
+  /api/reactors/docket/{docket_num}/:
+    get:
+      operationId: retrieveReactor
+      description: ''
+      parameters:
+      - name: docket_num
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reactor'
+          description: ''
+      tags:
+      - api
+  /api/status/out/{date}/:
+    get:
+      operationId: retrieveStatusEntry
+      description: ''
+      parameters:
+      - name: date
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusEntry'
+          description: ''
+      tags:
+      - api
+  /api/status/last_out/docket/{docket_num}/:
+    get:
+      operationId: retrieveStatusEntry
+      description: ''
+      parameters:
+      - name: docket_num
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusEntry'
+          description: ''
+      tags:
+      - api
+  /api/status/last_out/name/{short_name}/:
+    get:
+      operationId: retrieveStatusEntry
+      description: ''
+      parameters:
+      - name: short_name
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusEntry'
+          description: ''
+      tags:
+      - api
+  /api/status/{docket_num}/{date}/:
+    get:
+      operationId: retrieveStatusEntry
+      description: ''
+      parameters:
+      - name: docket_num
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: date
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusEntry'
+          description: ''
+      tags:
+      - api
+  /api/status/{short_name}/{date}/:
+    get:
+      operationId: retrieveStatusEntry
+      description: ''
+      parameters:
+      - name: short_name
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: date
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusEntry'
+          description: ''
+      tags:
+      - api
+components:
+  schemas:
+    Reactor:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        license_length:
+          type: string
+          readOnly: true
+        current_reactor_age:
+          type: string
+          readOnly: true
+        time_remaining:
+          type: string
+          readOnly: true
+        short_name:
+          type: string
+          maxLength: 200
+        long_name:
+          type: string
+          maxLength: 200
+        web_page:
+          type: string
+          maxLength: 200
+        docket_number:
+          type: string
+          maxLength: 8
+        license_number:
+          type: string
+          maxLength: 10
+        city:
+          type: string
+          maxLength: 100
+        state:
+          type: string
+          maxLength: 2
+        nrc_region:
+          type: string
+          maxLength: 10
+        parent_company_utility_name:
+          type: string
+          maxLength: 200
+        licensee:
+          type: string
+          maxLength: 200
+        parent_company_website:
+          type: string
+          maxLength: 200
+        parent_company_notes:
+          type: string
+          nullable: true
+        reactor_and_containment_type:
+          type: string
+          maxLength: 50
+        steam_supplier_and_design_type:
+          type: string
+          maxLength: 50
+        architect_engineer:
+          type: string
+          maxLength: 50
+        constructor_name:
+          type: string
+          maxLength: 50
+        construction_permit_issued:
+          type: string
+          format: date
+          nullable: true
+        operating_license_issued:
+          type: string
+          format: date
+          nullable: true
+        commercial_operation:
+          type: string
+          format: date
+          nullable: true
+        renewed_operating_license_issued:
+          type: string
+          format: date
+          nullable: true
+        operating_license_expires:
+          type: string
+          format: date
+          nullable: true
+        subsequent_renewed_operating_license_issued:
+          type: string
+          format: date
+          nullable: true
+        licensed_mwt:
+          type: number
+        capacity_mwe:
+          type: number
+      required:
+      - short_name
+      - long_name
+      - web_page
+      - docket_number
+      - license_number
+      - city
+      - state
+      - nrc_region
+      - parent_company_utility_name
+      - licensee
+      - parent_company_website
+      - reactor_and_containment_type
+      - steam_supplier_and_design_type
+      - architect_engineer
+      - constructor_name
+      - licensed_mwt
+      - capacity_mwe
+    StatusEntry:
+      type: object
+      properties:
+        reactor_short_name:
+          type: string
+        docket_number:
+          type: string
+        date:
+          type: string
+          format: date
+        power:
+          type: integer
+      required:
+      - reactor_short_name
+      - docket_number
+      - date
+      - power
